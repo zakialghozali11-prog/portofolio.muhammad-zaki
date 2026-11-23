@@ -58,15 +58,16 @@
   const STREAK_HEIGHTS = [34, 46, 28, 52, 40, 24, 48, 36, 54, 30, 44, 26, 50, 38, 22, 46, 34, 54, 28, 42, 50, 32, 44, 38];
 
   // Jadwal mingguan (1 = Senin … 7 = Minggu).
-  // school = daftar mata pelajaran hari itu (kosong → libur, isi catatan di `rest`).
-  // vibe   = [jam, kegiatan] sesi Vibe Coding — ini contoh, ubah sesuai jadwal belajarmu.
+  // school    = daftar mata pelajaran hari itu (kosong → libur, isi catatan di `rest`).
+  // les       = jam les (opsional). Ditampilkan sebelum sesi Vibe Coding; beri `vibeFirst: true` bila ngoding lebih dulu.
+  // vibe      = [jam, kegiatan] sesi Vibe Coding — kegiatannya contoh, ubah sesuai jadwal belajarmu.
   const SCHEDULE = {
     1: { school: ["English", "Agama", "B. Indonesia"], vibe: ["19.30 – 20.30", "Susun PRD & rancang tampilan UI"] },
     2: { school: ["Olahraga", "B. Jawa", "Pendidikan Pancasila"], vibe: ["19.30 – 20.30", "Belajar JavaScript & latihan kode"] },
     3: { school: ["IPA", "Matematika", "Seni Budaya"], vibe: ["19.30 – 21.00", "Bangun fitur baru bersama AI"] },
-    4: { school: ["Matematika", "Informatika", "BK", "IPA"], vibe: ["19.30 – 20.30", "Eksperimen UI Liquid Glass"] },
+    4: { school: ["Matematika", "Informatika", "BK", "IPA"], les: "16.30 – 19.30", vibe: ["Mulai 20.00", "Eksperimen UI Liquid Glass"] },
     5: { school: ["B. Indonesia", "IPS"], vibe: ["19.30 – 21.00", "Iterasi AI & perapian detail"] },
-    6: { school: [], rest: ["Libur sekolah", "Waktu bebas & kegiatan ekstrakurikuler"], vibe: ["09.00 – 12.00", "Sesi proyek utama: MZ Liquid App"] },
+    6: { school: [], rest: ["Libur sekolah", "Waktu bebas & kegiatan ekstrakurikuler"], les: "14.00 – 15.30", vibeFirst: true, vibe: ["Pagi hari", "Sesi proyek utama: MZ Liquid App"] },
     7: { school: [], rest: ["Libur sekolah", "Istirahat & persiapan minggu depan"], vibe: ["16.00 – 17.30", "Review, upload GitHub & catat keuangan"] },
   };
 
@@ -1996,7 +1997,9 @@
     return d === 0 ? 7 : d;
   };
 
-  function renderSchedule(day) {
+  let scheduleAnim = null;
+
+  function renderSchedule(day, animate = true) {
     const data = SCHEDULE[day];
     const box = $("#schedule-detail");
     if (!data || !box) return;
@@ -2005,9 +2008,27 @@
     const schoolBody = subjects.length
       ? `<b>${subjects.length} mata pelajaran</b><ul class="sched-subjects">${subjects.map((name) => `<li>${esc(name)}</li>`).join("")}</ul>`
       : `<b>${esc(rest[0])}</b><p>${esc(rest[1])}</p>`;
-    box.innerHTML = `
-      <div class="sched-row is-school"><span class="sched-ico">${icon("graduation-cap", 20, 2)}</span><div class="sched-text"><small>Pelajaran</small>${schoolBody}</div></div>
-      <div class="sched-row"><span class="sched-ico">${icon("code-xml", 20, 2)}</span><div class="sched-text"><small>Sesi Vibe Coding</small><b>${esc(data.vibe[0])}</b><p>${esc(data.vibe[1])}</p></div></div>`;
+    const row = (cls, iconName, label, body) =>
+      `<div class="sched-row${cls ? ` ${cls}` : ""}"><span class="sched-ico">${icon(iconName, 20, 2)}</span><div class="sched-text"><small>${label}</small>${body}</div></div>`;
+    const school = row("is-school", "graduation-cap", "Pelajaran", schoolBody);
+    const vibe = row("", "code-xml", "Sesi Vibe Coding", `<b>${esc(data.vibe[0])}</b><p>${esc(data.vibe[1])}</p>`);
+    const les = data.les ? row("is-les", "book-open", "Les", `<b>${esc(data.les)}</b>`) : "";
+
+    // tinggi kartu berubah halus (bukan melompat) saat jumlah baris beda antar hari
+    const before = box.getBoundingClientRect().height;
+    if (scheduleAnim) scheduleAnim.cancel();
+    scheduleAnim = null;
+    box.innerHTML = school + (data.vibeFirst ? vibe + les : les + vibe);
+    const after = box.getBoundingClientRect().height;
+    if (animate && !prefersReduced() && before > 0 && Math.abs(after - before) > 2 && box.animate) {
+      scheduleAnim = box.animate([{ height: `${before}px`, overflow: "hidden" }, { height: `${after}px`, overflow: "hidden" }], {
+        duration: 340,
+        easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+      });
+      scheduleAnim.onfinish = () => {
+        scheduleAnim = null;
+      };
+    }
   }
 
   function setupSchedule() {
