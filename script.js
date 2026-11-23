@@ -57,15 +57,17 @@
 
   const STREAK_HEIGHTS = [34, 46, 28, 52, 40, 24, 48, 36, 54, 30, 44, 26, 50, 38, 22, 46, 34, 54, 28, 42, 50, 32, 44, 38];
 
-  // Jadwal mingguan (1 = Senin … 7 = Minggu). Ubah sesuai jadwal aslimu.
+  // Jadwal mingguan (1 = Senin … 7 = Minggu).
+  // school = daftar mata pelajaran hari itu (kosong → libur, isi catatan di `rest`).
+  // vibe   = [jam, kegiatan] sesi Vibe Coding — ini contoh, ubah sesuai jadwal belajarmu.
   const SCHEDULE = {
-    1: { school: ["07.00 – 14.00", "Matematika, IPA, Bahasa Indonesia"], vibe: ["19.30 – 20.30", "Susun PRD & rancang tampilan UI"] },
-    2: { school: ["07.00 – 14.00", "IPS, Bahasa Inggris, Seni Budaya"], vibe: ["19.30 – 20.30", "Belajar JavaScript & latihan kode"] },
-    3: { school: ["07.00 – 14.00", "Matematika, PJOK, Informatika"], vibe: ["19.30 – 21.00", "Bangun fitur baru bersama AI"] },
-    4: { school: ["07.00 – 14.00", "IPA, Bahasa Indonesia, PKN"], vibe: ["19.30 – 20.30", "Eksperimen UI Liquid Glass"] },
-    5: { school: ["07.00 – 11.30", "Pendidikan Agama, Bahasa Inggris, Prakarya"], vibe: ["19.30 – 21.00", "Iterasi AI & perapian detail"] },
-    6: { school: ["Libur sekolah", "Waktu bebas & kegiatan ekstrakurikuler"], vibe: ["09.00 – 12.00", "Sesi proyek utama: MZ Liquid App"] },
-    7: { school: ["Libur sekolah", "Istirahat & persiapan minggu depan"], vibe: ["16.00 – 17.30", "Review, upload GitHub & catat keuangan"] },
+    1: { school: ["English", "Agama", "B. Indonesia"], vibe: ["19.30 – 20.30", "Susun PRD & rancang tampilan UI"] },
+    2: { school: ["Olahraga", "B. Jawa", "Pendidikan Pancasila"], vibe: ["19.30 – 20.30", "Belajar JavaScript & latihan kode"] },
+    3: { school: ["IPA", "Matematika", "Seni Budaya"], vibe: ["19.30 – 21.00", "Bangun fitur baru bersama AI"] },
+    4: { school: ["Matematika", "Informatika", "BK", "IPA"], vibe: ["19.30 – 20.30", "Eksperimen UI Liquid Glass"] },
+    5: { school: ["B. Indonesia", "IPS"], vibe: ["19.30 – 21.00", "Iterasi AI & perapian detail"] },
+    6: { school: [], rest: ["Libur sekolah", "Waktu bebas & kegiatan ekstrakurikuler"], vibe: ["09.00 – 12.00", "Sesi proyek utama: MZ Liquid App"] },
+    7: { school: [], rest: ["Libur sekolah", "Istirahat & persiapan minggu depan"], vibe: ["16.00 – 17.30", "Review, upload GitHub & catat keuangan"] },
   };
 
   const ACTIVITY = {
@@ -1998,8 +2000,13 @@
     const data = SCHEDULE[day];
     const box = $("#schedule-detail");
     if (!data || !box) return;
+    const subjects = Array.isArray(data.school) ? data.school : [];
+    const rest = data.rest || ["Libur sekolah", ""];
+    const schoolBody = subjects.length
+      ? `<b>${subjects.length} mata pelajaran</b><ul class="sched-subjects">${subjects.map((name) => `<li>${esc(name)}</li>`).join("")}</ul>`
+      : `<b>${esc(rest[0])}</b><p>${esc(rest[1])}</p>`;
     box.innerHTML = `
-      <div class="sched-row is-school"><span class="sched-ico">${icon("graduation-cap", 20, 2)}</span><div class="sched-text"><small>Sekolah</small><b>${esc(data.school[0])}</b><p>${esc(data.school[1])}</p></div></div>
+      <div class="sched-row is-school"><span class="sched-ico">${icon("graduation-cap", 20, 2)}</span><div class="sched-text"><small>Pelajaran</small>${schoolBody}</div></div>
       <div class="sched-row"><span class="sched-ico">${icon("code-xml", 20, 2)}</span><div class="sched-text"><small>Sesi Vibe Coding</small><b>${esc(data.vibe[0])}</b><p>${esc(data.vibe[1])}</p></div></div>`;
   }
 
