@@ -1,0 +1,31 @@
+{
+  "name": "MZ — Muhammad Zaki Portfolio & Finance",
+  "short_name": "MZ App",
+  "description": "Portofolio Vibe Coding Muhammad Zaki Al Ghozali & Aplikasi Keuangan Harian Liquid Glass",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F2F7FF",
+  "theme_color": "#007BFF",
+  "icons": [
+    {
+      "src": "./icon-mz.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

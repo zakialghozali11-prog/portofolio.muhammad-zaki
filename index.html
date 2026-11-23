@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>MZ — Muhammad Zaki Portfolio &amp; Finance</title>
+  <meta name="description" content="Portofolio Vibe Coding Muhammad Zaki Al Ghozali &amp; Aplikasi Keuangan Harian Liquid Glass">
+
+  <!-- === TAMPILAN APLIKASI HP (PWA) === -->
+  <meta name="theme-color" content="#007BFF">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="MZ App">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" type="image/svg+xml" href="./icon-mz.svg">
+  <link rel="apple-touch-icon" href="./icon-192.png">
+
+  <!-- === FONT & GAYA === -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+  <script src="./script.js" defer></script>
+</head>
+<body class="is-booting">
+  <a class="skip-link" href="#main">Lewati ke konten utama</a>
+
+  <!-- === AMBIENT LIQUID MESH BACKGROUND === -->
+  <div class="ambient" aria-hidden="true">
+    <i class="orb orb-1"></i>
+    <i class="orb orb-2"></i>
+    <i class="orb orb-3"></i>
+  </div>
+
+  <!-- === SPRITE LOGO MZ (dipakai ulang lewat <use>) === -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="mz-mark" viewBox="0 0 100 100">
+      <path d="M14 68V32L32 54L50 32V68M58 32H86L58 68H86" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"></path>
+    </symbol>
+  </svg>
+
+  <noscript><p class="noscript">Aplikasi ini membutuhkan JavaScript. Aktifkan JavaScript di browser kamu, lalu muat ulang halaman.</p></noscript>
+
+  <!-- ==========================================================
+       STARTUP SPLASH — ANIMASI LOGO MZ (~2,1 detik)
+       ========================================================== -->
+  <div id="startup-splash" class="splash" role="status" aria-live="polite" aria-label="Memuat MZ App">
+    <i class="splash-orb so-1"></i>
+    <i class="splash-orb so-2"></i>
+    <div class="splash-core">
+      <div class="splash-logo-wrap">
+        <span class="splash-ripple r-1"></span>
+        <span class="splash-ripple r-2"></span>
+        <div class="splash-logo liquid-glass-blue">
+          <svg class="splash-mark" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+            <path class="draw d1" pathLength="1" d="M14 68V32L32 54L50 32V68"></path>
+            <path class="draw d2" pathLength="1" d="M58 32H86L58 68H86"></path>
+          </svg>
+          <span class="splash-sheen"></span>
+        </div>
+      </div>
+      <p class="splash-name" data-fit="14">Muhammad Zaki Al Ghozali</p>
+      <p class="splash-badge liquid-glass" data-fit="9">Pelajar SMP • Vibe Coding • Daily Finance</p>
+      <div class="splash-bar" aria-hidden="true"><span></span></div>
+    </div>
+    <p class="splash-skip">Ketuk di mana saja untuk melewati</p>
+  </div>
+
+  <!-- ==========================================================
+       BINGKAI UTAMA APLIKASI (Desktop: sidebar + top bar)
+       ========================================================== -->
+  <div class="liquid-shell" id="app-shell">
+
+    <!-- Sidebar kiri (hanya tampil di desktop >= 1024px) -->
+    <aside class="sidebar liquid-glass-blue" id="sidebar" aria-label="Menu utama">
+      <div class="sb-brand">
+        <button type="button" class="mz-logo mz-md" data-view="overview" aria-label="MZ Studio — ke halaman Overview">
+          <svg viewBox="0 0 100 100" aria-hidden="true"><use href="#mz-mark"></use></svg>
+        </button>
+        <div class="sb-brand-text">
+          <b>MZ Studio</b>
+          <span class="sb-tag">Vibe Coder</span>
+        </div>
+      </div>
+
+      <nav class="sb-nav" id="sidebar-nav" aria-label="Halaman">
+        <span class="pill-indicator liquid-pill-active" id="sidebar-pill" aria-hidden="true"></span>
+        <button type="button" class="nav-btn" data-view="overview"><span data-icon="layout-dashboard" data-size="20"></span><span>Overview</span></button>
+        <button type="button" class="nav-btn" data-view="finance"><span data-icon="wallet" data-size="20"></span><span>Daily Finance</span></button>
+        <button type="button" class="nav-btn" data-view="projects"><span data-icon="code-xml" data-size="20"></span><span>Karya Vibe</span></button>
+        <button type="button" class="nav-btn" data-view="about"><span data-icon="user" data-size="20"></span><span>Profil &amp; Skill</span></button>
+        <button type="button" class="nav-btn" data-view="contact"><span data-icon="message-circle" data-size="20"></span><span>Kontak &amp; Install</span></button>
+      </nav>
+
+      <div class="sb-foot">
+        <div class="sb-balance" aria-live="polite">
+          <span class="sb-balance-label">Saldo Aktif</span>
+          <b class="sb-balance-value tabular" id="sb-balance" data-fit="13">Rp 0</b>
+          <span class="sb-balance-note" id="sb-balance-note">0 transaksi tercatat</span>
+        </div>
+        <button type="button" class="sb-btn" data-action="replay-intro"><span data-icon="rotate-ccw" data-size="18"></span><span>Putar Intro MZ</span></button>
+        <button type="button" class="sb-btn sb-btn-install" data-action="install"><span data-icon="smartphone" data-size="18"></span><span class="install-label">Install App di HP</span></button>
+      </div>
+    </aside>
+
+    <div class="shell-main">
+
+      <!-- Top bar: desktop = sapaan + aksi cepat, HP = logo MZ App + aksi cepat -->
+      <header class="topbar liquid-glass" id="topbar">
+        <button type="button" class="mz-logo mz-sm tb-logo" data-view="overview" aria-label="MZ App — ke halaman Home">
+          <svg viewBox="0 0 100 100" aria-hidden="true"><use href="#mz-mark"></use></svg>
+        </button>
+        <b class="tb-brand">MZ App</b>
+        <p class="tb-greeting" data-fit="11"><span id="greeting-word">Selamat Pagi</span>, <span class="tb-name">Muhammad Zaki Al Ghozali</span></p>
+
+        <div class="tb-actions">
+          <button type="button" class="btn btn-blue btn-sm" data-action="add-tx">
+            <span data-icon="plus" data-size="18" data-stroke="2.25"></span>
+            <span class="lbl-long">Catat Keuangan</span><span class="lbl-short">Catat</span>
+          </button>
+          <button type="button" class="btn btn-outline btn-sm tb-install" data-action="install" aria-label="Install App">
+            <span data-icon="download" data-size="18"></span>
+            <span class="install-label lbl-long">Install App</span>
+          </button>
+        </div>
+      </header>
+
+      <main id="main" class="main" tabindex="-1">
+
+        <!-- ========================================================
+             HALAMAN 1 — OVERVIEW
+             ======================================================== -->
+        <section class="view is-active" id="view-overview" aria-labelledby="hero-title">
+          <div class="overview-layout">
+
+            <div class="overview-main">
+
+              <!-- Hero -->
+              <article class="hero liquid-glass-blue">
+                <div class="hero-copy">
+                  <p class="hero-badge"><i class="pulse-dot"></i>Pelajar SMP • Aktif Vibe Coding</p>
+                  <h1 class="hero-title" id="hero-title">Membangun ide digital lewat <em>Vibe Coding</em></h1>
+                  <p class="hero-text"><b class="nowrap">Muhammad Zaki Al Ghozali</b> membangun website dan aplikasi lewat kolaborasi dengan AI, PRD yang presisi, dan kepekaan desain UI/UX.</p>
+                  <div class="hero-cta">
+                    <button type="button" class="btn btn-white" data-view="finance"><span>Buka Daily Finance</span><span data-icon="arrow-up-right" data-size="16" data-stroke="2.25"></span></button>
+                    <button type="button" class="btn btn-ghost" data-view="projects"><span>Lihat Karya</span></button>
+                  </div>
+                </div>
+                <div class="hero-art" aria-hidden="true">
+                  <span class="mz-logo mz-xl"><svg viewBox="0 0 100 100"><use href="#mz-mark"></use></svg></span>
+                </div>
+              </article>
+
+              <!-- Widget ringkasan keuangan live -->
+              <article class="live-card liquid-glass" aria-labelledby="live-title">
+                <div class="live-head">
+                  <div>
+                    <h2 class="card-title" id="live-title">Ringkasan Keuangan Live</h2>
+                    <p class="card-sub">Sinkron otomatis dengan halaman Daily Finance</p>
+                  </div>
+                  <button type="button" class="btn btn-blue btn-sm" data-action="add-tx"><span data-icon="plus" data-size="18" data-stroke="2.25"></span><span>Catat</span></button>
+                </div>
+                <div class="live-stats">
+                  <div class="live-stat is-main">
+                    <span class="live-label">Saldo Saat Ini</span>
+                    <b class="live-value tabular" id="ov-balance" data-fit="13">Rp 0</b>
+                  </div>
+                  <div class="live-stat">
+                    <span class="live-label"><span data-icon="arrow-up-right" data-size="14" data-stroke="2.5"></span>Masuk Hari Ini</span>
+                    <b class="live-value tabular is-income" id="ov-income-today" data-fit="12">Rp 0</b>
+                  </div>
+                  <div class="live-stat">
+                    <span class="live-label"><span data-icon="arrow-down-right" data-size="14" data-stroke="2.5"></span>Keluar Hari Ini</span>
+                    <b class="live-value tabular is-expense" id="ov-expense-today" data-fit="12">Rp 0</b>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Grid Bento -->
+              <div class="bento">
+                <article class="bento-card bento-stack liquid-glass" aria-labelledby="stack-title">
+                  <h2 class="card-title" id="stack-title">Core Vibe Coding Stack</h2>
+                  <ul class="stack-grid" id="stack-grid"></ul>
+                </article>
+
+                <article class="bento-card bento-focus liquid-glass" aria-labelledby="focus-title">
+                  <div class="card-head">
+                    <h2 class="card-title" id="focus-title">Fokus Karya</h2>
+                    <div class="seg seg-sm" id="focus-tabs" role="tablist" aria-label="Mode fokus karya">
+                      <span class="seg-pill liquid-pill-ice" id="focus-tabs-pill" aria-hidden="true"></span>
+                      <button type="button" class="seg-btn" role="tab" data-mode="skill">Skill</button>
+                      <button type="button" class="seg-btn" role="tab" data-mode="jam">Jam</button>
+                    </div>
+                  </div>
+                  <div class="focus-bars" id="focus-bars"></div>
+                </article>
+
+                <article class="bento-card bento-streak liquid-glass" aria-labelledby="streak-title">
+                  <h2 class="card-title" id="streak-title">Streak Coding</h2>
+                  <div class="streak-nums">
+                    <div><b class="streak-big tabular">12+</b><span>Proyek</span></div>
+                    <div><b class="streak-big tabular">98%</b><span>Konsisten</span></div>
+                  </div>
+                  <div class="streak-ticks" id="streak-ticks" aria-hidden="true"></div>
+                </article>
+
+                <article class="bento-card bento-build liquid-glass-blue" id="build-card">
+                  <button type="button" class="build-toggle" id="build-toggle" aria-pressed="true" aria-label="Jeda animasi pembangunan">
+                    <span id="build-toggle-icon" data-icon="pause" data-size="20" data-stroke="2.25"></span>
+                  </button>
+                  <div class="build-text">
+                    <span class="build-label">Sedang Membangun</span>
+                    <b class="build-title">MZ Liquid App v1.0</b>
+                  </div>
+                  <div class="waveform is-playing" id="build-wave" aria-hidden="true"></div>
+                </article>
+              </div>
+            </div>
+
+            <!-- Panel kanan -->
+            <div class="overview-side">
+              <article class="side-card liquid-glass" aria-labelledby="schedule-title">
+                <h2 class="card-title" id="schedule-title">Jadwal Mingguan</h2>
+                <div class="week-strip" id="schedule-days" role="tablist" aria-label="Pilih hari">
+                  <span class="seg-pill liquid-pill-blue" id="schedule-pill" aria-hidden="true"></span>
+                  <button type="button" class="day-btn" role="tab" data-day="1"><small>Sen</small><b>1</b></button>
+                  <button type="button" class="day-btn" role="tab" data-day="2"><small>Sel</small><b>2</b></button>
+                  <button type="button" class="day-btn" role="tab" data-day="3"><small>Rab</small><b>3</b></button>
+                  <button type="button" class="day-btn" role="tab" data-day="4"><small>Kam</small><b>4</b></button>
+                  <button type="button" class="day-btn" role="tab" data-day="5"><small>Jum</small><b>5</b></button>
+                  <button type="button" class="day-btn" role="tab" data-day="6"><small>Sab</small><b>6</b></button>
+                  <button type="button" class="day-btn" role="tab" data-day="7"><small>Min</small><b>7</b></button>
+                </div>
+                <div class="schedule-detail" id="schedule-detail" aria-live="polite"></div>
+              </article>
+
+              <article class="side-card liquid-glass" aria-labelledby="featured-title">
+                <div class="card-head">
+                  <h2 class="card-title" id="featured-title">Karya Pilihan</h2>
+                  <button type="button" class="link-btn" data-view="projects">Semua<span data-icon="arrow-up-right" data-size="14" data-stroke="2.25"></span></button>
+                </div>
+                <ul class="featured-list" id="featured-list"></ul>
+              </article>
+
+              <article class="side-card liquid-glass" aria-labelledby="activity-title">
+                <div class="card-head card-head-wrap">
+                  <h2 class="card-title" id="activity-title">Aktivitas &amp; Target</h2>
+                  <div class="seg seg-sm" id="activity-tabs" role="tablist" aria-label="Jenis aktivitas">
+                    <span class="seg-pill liquid-pill-ice" id="activity-tabs-pill" aria-hidden="true"></span>
+                    <button type="button" class="seg-btn" role="tab" data-tab="proyek">Proyek</button>
+                    <button type="button" class="seg-btn" role="tab" data-tab="belajar">Belajar</button>
+                    <button type="button" class="seg-btn" role="tab" data-tab="target">Target</button>
+                  </div>
+                </div>
+                <ul class="activity-list" id="activity-list"></ul>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========================================================
+             HALAMAN 2 — DAILY FINANCE
+             ======================================================== -->
+        <section class="view" id="view-finance" aria-labelledby="finance-title" hidden>
+          <div class="view-head">
+            <p class="eyebrow">Daily Finance</p>
+            <h1 id="finance-title">Pemasukan, Pengeluaran &amp; Grafik</h1>
+            <p class="view-lead">Catat uang masuk dan keluar dalam hitungan detik. Semua angka, grafik, dan target tabungan langsung diperbarui.</p>
+          </div>
+
+          <div class="kpi-grid">
+            <article class="kpi liquid-glass">
+              <span class="kpi-label"><span class="kpi-ico" data-icon="wallet" data-size="16"></span>Total Saldo Aktif</span>
+              <b class="kpi-value tabular" id="kpi-balance" data-fit="14">Rp 0</b>
+              <span class="kpi-foot" id="kpi-balance-note">Pemasukan − Pengeluaran</span>
+            </article>
+            <article class="kpi liquid-glass is-income">
+              <span class="kpi-label"><span class="kpi-ico" data-icon="arrow-up-right" data-size="16" data-stroke="2.25"></span>Total Pemasukan</span>
+              <b class="kpi-value tabular" id="kpi-income" data-fit="14">Rp 0</b>
+              <span class="kpi-foot" id="kpi-income-count">0 transaksi</span>
+            </article>
+            <article class="kpi liquid-glass is-expense">
+              <span class="kpi-label"><span class="kpi-ico" data-icon="arrow-down-right" data-size="16" data-stroke="2.25"></span>Total Pengeluaran</span>
+              <b class="kpi-value tabular" id="kpi-expense" data-fit="14">Rp 0</b>
+              <span class="kpi-foot" id="kpi-expense-count">0 transaksi</span>
+            </article>
+            <article class="kpi liquid-glass">
+              <span class="kpi-label"><span class="kpi-ico" data-icon="piggy-bank" data-size="16"></span>Rasio Tabungan</span>
+              <b class="kpi-value tabular" id="kpi-ratio">0%</b>
+              <span class="kpi-foot">Saldo ÷ Pemasukan</span>
+            </article>
+          </div>
+
+          <div class="finance-charts">
+            <article class="card liquid-glass" aria-labelledby="chart1-title">
+              <div class="card-head card-head-wrap">
+                <div>
+                  <h2 class="card-title" id="chart1-title">Arus Kas Harian &amp; Kategori</h2>
+                  <p class="card-sub" id="chart-sub">Pemasukan vs pengeluaran 7 hari terakhir</p>
+                </div>
+                <div class="seg seg-sm" id="chart-tabs" role="tablist" aria-label="Mode grafik">
+                  <span class="seg-pill liquid-pill-ice" id="chart-tabs-pill" aria-hidden="true"></span>
+                  <button type="button" class="seg-btn" role="tab" data-mode="daily">7 Hari Terakhir</button>
+                  <button type="button" class="seg-btn" role="tab" data-mode="category">Per Kategori</button>
+                </div>
+              </div>
+              <div class="legend" aria-hidden="true">
+                <span class="legend-item"><i class="swatch swatch-income"></i>Pemasukan</span>
+                <span class="legend-item"><i class="swatch swatch-expense"></i>Pengeluaran</span>
+              </div>
+              <div class="chart-box" id="chart-cashflow" tabindex="0"></div>
+            </article>
+
+            <article class="card liquid-glass" aria-labelledby="chart2-title">
+              <h2 class="card-title" id="chart2-title">Rasio Keuangan</h2>
+              <p class="card-sub">Dana tersimpan vs terpakai dari seluruh pemasukan</p>
+              <div class="chart-donut" id="chart-donut"></div>
+              <ul class="donut-legend" id="donut-legend"></ul>
+
+              <div class="goal-card">
+                <div class="goal-top">
+                  <div class="goal-text">
+                    <span class="goal-eyebrow">Target Tabungan</span>
+                    <b class="goal-title" id="goal-title">Upgrade Laptop Vibe Coding</b>
+                  </div>
+                  <b class="goal-percent tabular" id="goal-percent">0%</b>
+                </div>
+                <div class="goal-track" role="progressbar" aria-labelledby="goal-title" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="goal-track">
+                  <span class="goal-fill" id="goal-fill"></span>
+                </div>
+                <p class="goal-numbers tabular"><span id="goal-saved">Rp 0</span> dari <span id="goal-target">Rp 0</span></p>
+                <p class="goal-hint" id="goal-hint"></p>
+                <button type="button" class="btn btn-outline btn-block" id="goal-edit"><span data-icon="pencil" data-size="16"></span><span>Ubah Target</span></button>
+              </div>
+            </article>
+          </div>
+
+          <!-- Form catat transaksi cepat (langsung di halaman Finance) -->
+          <article class="card liquid-glass quick-card" aria-labelledby="quick-title">
+            <div class="card-head">
+              <div>
+                <h2 class="card-title" id="quick-title">Catat Transaksi Cepat</h2>
+                <p class="card-sub">Ketik nominal, pilih kategori, lalu simpan.</p>
+              </div>
+            </div>
+            <div id="tx-inline-mount"></div>
+          </article>
+
+          <!-- Riwayat -->
+          <article class="card liquid-glass history-card" aria-labelledby="history-title">
+            <div class="card-head card-head-wrap">
+              <div>
+                <h2 class="card-title" id="history-title">Riwayat Transaksi Harian</h2>
+                <p class="card-sub" id="history-count">0 transaksi</p>
+              </div>
+              <div class="history-actions">
+                <button type="button" class="btn btn-outline btn-sm" id="export-csv"><span data-icon="download" data-size="16"></span><span>Export CSV</span></button>
+                <button type="button" class="btn btn-outline btn-sm" id="reset-data"><span data-icon="rotate-ccw" data-size="16"></span><span>Reset Data ke 0</span></button>
+              </div>
+            </div>
+            <div class="history-tools">
+              <div class="seg seg-full-sm" id="history-filter" role="tablist" aria-label="Filter jenis transaksi">
+                <span class="seg-pill liquid-pill-ice" id="history-filter-pill" aria-hidden="true"></span>
+                <button type="button" class="seg-btn" role="tab" data-type="all">Semua</button>
+                <button type="button" class="seg-btn" role="tab" data-type="income">Pemasukan</button>
+                <button type="button" class="seg-btn" role="tab" data-type="expense">Pengeluaran</button>
+              </div>
+              <label class="search-field" for="history-search">
+                <span class="sr-only">Cari transaksi</span>
+                <span data-icon="search" data-size="18"></span>
+                <input id="history-search" type="search" placeholder="Cari catatan atau kategori…" autocomplete="off" spellcheck="false">
+              </label>
+            </div>
+            <ul class="tx-list" id="history-list"></ul>
+          </article>
+        </section>
+
+        <!-- ========================================================
+             HALAMAN 3 — KARYA VIBE CODING
+             ======================================================== -->
+        <section class="view" id="view-projects" aria-labelledby="projects-title" hidden>
+          <div class="view-head">
+            <p class="eyebrow">Karya Vibe Coding</p>
+            <h1 id="projects-title">Proyek yang Dibangun Lewat Vibe Coding</h1>
+            <p class="view-lead">Enam karya pilihan — dari aplikasi keuangan sampai eksperimen UI. Ketuk kartu untuk membaca studi kasusnya.</p>
+          </div>
+          <div class="toolbar">
+            <div class="seg seg-glass seg-scroll" id="project-filter" role="tablist" aria-label="Filter kategori karya">
+              <span class="seg-pill liquid-pill-ice" id="project-filter-pill" aria-hidden="true"></span>
+              <button type="button" class="seg-btn" role="tab" data-filter="Semua">Semua</button>
+              <button type="button" class="seg-btn" role="tab" data-filter="Web App">Web App</button>
+              <button type="button" class="seg-btn" role="tab" data-filter="Finance">Finance</button>
+              <button type="button" class="seg-btn" role="tab" data-filter="Eksperimen UI">Eksperimen UI</button>
+            </div>
+            <p class="count-note" id="project-count" aria-live="polite">6 karya</p>
+          </div>
+          <div class="project-grid" id="project-grid"></div>
+        </section>
+
+        <!-- ========================================================
+             HALAMAN 4 — PROFIL & SKILL
+             ======================================================== -->
+        <section class="view" id="view-about" aria-labelledby="about-title" hidden>
+          <article class="profile-card liquid-glass">
+            <span class="mz-logo mz-profile" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#mz-mark"></use></svg></span>
+            <div class="profile-copy">
+              <p class="eyebrow">Profil</p>
+              <h1 class="profile-name" id="about-title" data-fit="14">Muhammad Zaki Al Ghozali</h1>
+              <p class="profile-tagline"><span>Pelajar SMP</span><span class="dot"> • </span><span>Vibe Coding Builder</span><span class="dot"> • </span><span>Smart Daily Finance</span></p>
+              <div class="profile-bio" id="about-bio"></div>
+              <ul class="tags" id="about-tags"></ul>
+              <div class="profile-actions">
+                <button type="button" class="btn btn-blue" data-action="replay-intro"><span data-icon="rotate-ccw" data-size="18"></span><span>Putar Intro MZ</span></button>
+                <button type="button" class="btn btn-outline" data-view="contact"><span data-icon="message-circle" data-size="18"></span><span>Ajak Kolaborasi</span></button>
+              </div>
+            </div>
+          </article>
+
+          <div class="about-grid">
+            <article class="card liquid-glass" aria-labelledby="skills-title">
+              <h2 class="card-title" id="skills-title">Skill Utama</h2>
+              <p class="card-sub">Tingkat penguasaan berdasarkan proyek yang sudah dibangun</p>
+              <ul class="skill-list" id="about-skills"></ul>
+            </article>
+            <article class="card liquid-glass" aria-labelledby="timeline-title">
+              <h2 class="card-title" id="timeline-title">Garis Waktu 2024 – 2026</h2>
+              <p class="card-sub">Perjalanan Zaki di dunia Vibe Coding</p>
+              <ol class="timeline" id="about-timeline"></ol>
+            </article>
+          </div>
+
+          <h2 class="section-title">Alur Kerja Vibe Coding</h2>
+          <ol class="workflow-grid" id="about-workflow"></ol>
+        </section>
+
+        <!-- ========================================================
+             HALAMAN 5 — KONTAK & INSTALL APLIKASI HP
+             ======================================================== -->
+        <section class="view" id="view-contact" aria-labelledby="contact-title" hidden>
+          <div class="view-head">
+            <p class="eyebrow">Kontak &amp; Install</p>
+            <h1 id="contact-title">Ayo Berkolaborasi</h1>
+            <p class="view-lead">Punya ide website atau aplikasi? Kirim pesan ke Zaki, lalu pasang MZ App di layar utama HP-mu.</p>
+          </div>
+
+          <div class="contact-grid">
+            <div class="contact-col">
+              <article class="card liquid-glass" aria-labelledby="form-title">
+                <h2 class="card-title" id="form-title">Kirim Pesan</h2>
+                <form id="contact-form" novalidate>
+                  <div class="field">
+                    <label for="contact-name">Nama</label>
+                    <input id="contact-name" type="text" autocomplete="name" placeholder="Nama lengkapmu" maxlength="60">
+                    <p class="error" id="contact-name-err" hidden></p>
+                  </div>
+                  <div class="field">
+                    <label for="contact-reach">Email / WhatsApp</label>
+                    <input id="contact-reach" type="text" inputmode="email" autocomplete="off" placeholder="nama@email.com atau 0812xxxxxxx" maxlength="80">
+                    <p class="error" id="contact-reach-err" hidden></p>
+                  </div>
+                  <div class="field">
+                    <label for="contact-message">Pesan</label>
+                    <textarea id="contact-message" rows="5" placeholder="Ceritakan ide atau kebutuhanmu…" maxlength="600"></textarea>
+                    <p class="error" id="contact-message-err" hidden></p>
+                  </div>
+                  <button type="submit" class="btn btn-blue btn-block" id="contact-send"><span data-icon="send" data-size="18"></span><span>Kirim Pesan</span></button>
+                </form>
+                <div class="form-success" id="contact-success" hidden>
+                  <span class="success-ico" data-icon="check" data-size="28" data-stroke="2.5"></span>
+                  <h3 id="contact-success-title">Pesan terkirim!</h3>
+                  <p id="contact-success-text"></p>
+                  <button type="button" class="btn btn-outline" id="contact-again">Tulis pesan lagi</button>
+                </div>
+              </article>
+
+              <article class="card liquid-glass email-card" aria-labelledby="email-title">
+                <h2 class="card-title" id="email-title">Email Langsung</h2>
+                <p class="email-address" id="email-address">zaki.alghozali@mzstudio.id</p>
+                <button type="button" class="btn btn-outline btn-block" id="copy-email"><span data-icon="copy" data-size="18"></span><span id="copy-email-label">Salin Email 1-Klik</span></button>
+              </article>
+            </div>
+
+            <article class="card liquid-glass install-card" id="install-card" aria-labelledby="install-title">
+              <div class="install-hero">
+                <img class="install-icon" src="./icon-mz.svg" width="88" height="88" alt="Ikon aplikasi MZ">
+                <div>
+                  <h2 class="card-title" id="install-title">Install Aplikasi MZ di HP</h2>
+                  <p class="card-sub">Layar penuh, tampil seperti aplikasi asli, dan tetap bisa dibuka offline.</p>
+                </div>
+              </div>
+              <button type="button" class="btn btn-blue btn-block liquid-shimmer" data-action="install"><span data-icon="smartphone" data-size="18"></span><span class="install-label">Install Aplikasi Sekarang</span></button>
+              <div class="guide-grid">
+                <section class="guide-box" aria-labelledby="guide-android">
+                  <h3 id="guide-android"><span data-icon="smartphone" data-size="16"></span>Android • Chrome</h3>
+                  <ol>
+                    <li>Buka link aplikasi di Chrome.</li>
+                    <li>Ketuk tombol <b>Install Aplikasi Sekarang</b>, atau menu <b>⋮</b>.</li>
+                    <li>Pilih <b>Install app</b> / <b>Tambahkan ke Layar utama</b>.</li>
+                  </ol>
+                </section>
+                <section class="guide-box" aria-labelledby="guide-ios">
+                  <h3 id="guide-ios"><span data-icon="share" data-size="16"></span>iPhone • Safari</h3>
+                  <ol>
+                    <li>Buka link aplikasi di Safari.</li>
+                    <li>Ketuk tombol <b>Bagikan</b> di bawah layar.</li>
+                    <li>Pilih <b>Tambah ke Layar Utama</b>, lalu <b>Tambah</b>.</li>
+                  </ol>
+                </section>
+              </div>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- ==========================================================
+       NAVIGASI HP: FLOATING BOTTOM DOCK
+       ========================================================== -->
+  <nav class="dock liquid-glass-blue" id="dock" aria-label="Navigasi utama">
+    <div class="dock-inner" id="dock-inner">
+      <span class="pill-indicator liquid-pill-active" id="dock-pill" aria-hidden="true"></span>
+      <button type="button" class="dock-btn" data-view="overview"><span data-icon="layout-dashboard" data-size="22"></span><span class="dock-label">Home</span></button>
+      <button type="button" class="dock-btn" data-view="finance"><span data-icon="wallet" data-size="22"></span><span class="dock-label">Finance</span></button>
+      <button type="button" class="dock-btn" data-view="projects"><span data-icon="code-xml" data-size="22"></span><span class="dock-label">Proyek</span></button>
+      <button type="button" class="dock-btn" data-view="about"><span data-icon="user" data-size="22"></span><span class="dock-label">Profil</span></button>
+      <button type="button" class="dock-btn" data-view="contact"><span data-icon="message-circle" data-size="22"></span><span class="dock-label">Kontak</span></button>
+    </div>
+  </nav>
+
+  <!-- ==========================================================
+       MODAL
+       ========================================================== -->
+
+  <!-- Modal Catat Transaksi Cepat (bottom sheet di HP) -->
+  <div class="overlay sheet" id="modal-tx" hidden>
+    <div class="panel liquid-glass" role="dialog" aria-modal="true" aria-labelledby="modal-tx-title">
+      <div class="panel-head">
+        <h2 id="modal-tx-title">Catat Transaksi</h2>
+        <button type="button" class="icon-btn" data-close aria-label="Tutup"><span data-icon="x" data-size="20"></span></button>
+      </div>
+      <div class="panel-body" id="tx-modal-mount"></div>
+    </div>
+  </div>
+
+  <!-- Modal Detail Proyek -->
+  <div class="overlay modal-wrap" id="modal-project" hidden>
+    <div class="panel liquid-glass project-panel" id="project-panel" role="dialog" aria-modal="true" aria-labelledby="project-title">
+      <button type="button" class="icon-btn icon-btn-float" data-close aria-label="Tutup detail proyek"><span data-icon="x" data-size="20"></span></button>
+      <div class="project-scroll" id="project-scroll">
+        <div class="project-shot" id="project-shot"></div>
+        <div class="project-body" id="project-body"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Ubah Target Tabungan -->
+  <div class="overlay sheet" id="modal-goal" hidden>
+    <div class="panel liquid-glass" role="dialog" aria-modal="true" aria-labelledby="modal-goal-title">
+      <div class="panel-head">
+        <h2 id="modal-goal-title">Ubah Target Tabungan</h2>
+        <button type="button" class="icon-btn" data-close aria-label="Tutup"><span data-icon="x" data-size="20"></span></button>
+      </div>
+      <form class="panel-body" id="goal-form" novalidate>
+        <div class="field">
+          <label for="goal-name">Nama target</label>
+          <input id="goal-name" type="text" maxlength="50" autocomplete="off" placeholder="Contoh: Upgrade Laptop Vibe Coding">
+          <p class="error" id="goal-name-err" hidden></p>
+        </div>
+        <div class="field">
+          <label for="goal-amount">Nominal target</label>
+          <div class="amount-wrap"><span class="amount-prefix">Rp</span><input id="goal-amount" type="text" inputmode="numeric" autocomplete="off" placeholder="0"></div>
+          <p class="error" id="goal-amount-err" hidden></p>
+        </div>
+        <button type="submit" class="btn btn-blue btn-block">Simpan Target</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Panduan Install HP -->
+  <div class="overlay sheet" id="modal-install" hidden>
+    <div class="panel liquid-glass" role="dialog" aria-modal="true" aria-labelledby="modal-install-title">
+      <div class="panel-head">
+        <h2 id="modal-install-title">Install MZ App di HP</h2>
+        <button type="button" class="icon-btn" data-close aria-label="Tutup"><span data-icon="x" data-size="20"></span></button>
+      </div>
+      <div class="panel-body">
+        <div class="install-hero is-center">
+          <img class="install-icon" src="./icon-mz.svg" width="84" height="84" alt="Ikon aplikasi MZ">
+          <p class="card-sub" id="install-modal-note">Pasang MZ App di layar utama agar tampil layar penuh seperti aplikasi asli.</p>
+        </div>
+        <div class="guide-grid">
+          <section class="guide-box" aria-labelledby="guide2-android">
+            <h3 id="guide2-android"><span data-icon="smartphone" data-size="16"></span>Android • Chrome</h3>
+            <ol>
+              <li>Buka link aplikasi di <b>Chrome</b>.</li>
+              <li>Ketuk menu <b>⋮</b> di pojok kanan atas.</li>
+              <li>Pilih <b>Install app</b> atau <b>Tambahkan ke Layar utama</b>.</li>
+            </ol>
+          </section>
+          <section class="guide-box" aria-labelledby="guide2-ios">
+            <h3 id="guide2-ios"><span data-icon="share" data-size="16"></span>iPhone • Safari</h3>
+            <ol>
+              <li>Buka link aplikasi di <b>Safari</b>.</li>
+              <li>Ketuk tombol <b>Bagikan</b> di bawah layar.</li>
+              <li>Pilih <b>Tambah ke Layar Utama</b>, lalu <b>Tambah</b>.</li>
+            </ol>
+          </section>
+        </div>
+        <p class="install-foot">Catatan: pemasangan hanya tersedia saat aplikasi dibuka lewat alamat <b>https://</b> (misalnya GitHub Pages), bukan dari file di komputer.</p>
+        <button type="button" class="btn btn-blue btn-block" data-close>Mengerti</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dialog konfirmasi kaca cair (pengganti confirm()) -->
+  <div class="overlay sheet" id="modal-confirm" hidden>
+    <div class="panel liquid-glass confirm-panel" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title" aria-describedby="confirm-text">
+      <div class="panel-body">
+        <h2 id="confirm-title">Konfirmasi</h2>
+        <p id="confirm-text" class="confirm-text"></p>
+        <div class="confirm-actions" id="confirm-actions"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Container Liquid Toast -->
+  <div class="toast-container" id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
+
+  <!-- Template form catat transaksi (dipakai di halaman Finance & modal) -->
+  <template id="tpl-tx-form">
+    <form class="tx-form" novalidate>
+      <div class="seg seg-glass seg-full tf-type" data-role="type" role="radiogroup" aria-label="Jenis transaksi">
+        <span class="seg-pill liquid-pill-ice" data-role="type-pill" aria-hidden="true"></span>
+        <button type="button" class="seg-btn" role="radio" data-type="income"><span data-icon="arrow-up-right" data-size="16" data-stroke="2.25"></span>Pemasukan</button>
+        <button type="button" class="seg-btn" role="radio" data-type="expense"><span data-icon="arrow-down-right" data-size="16" data-stroke="2.25"></span>Pengeluaran</button>
+      </div>
+
+      <div class="field tf-amount">
+        <label data-for="amount">Nominal</label>
+        <div class="amount-wrap">
+          <span class="amount-prefix">Rp</span>
+          <input data-id="amount" type="text" inputmode="numeric" autocomplete="off" placeholder="0">
+          <button type="button" class="amount-clear" data-role="amount-clear" aria-label="Hapus nominal" hidden><span data-icon="x" data-size="16" data-stroke="2.25"></span></button>
+        </div>
+        <div class="chips" data-role="chips"></div>
+        <p class="error" data-id="amount-err" hidden></p>
+      </div>
+
+      <div class="field tf-cats">
+        <span class="label">Kategori</span>
+        <div class="cat-pills" data-role="cats" role="radiogroup" aria-label="Kategori"></div>
+      </div>
+
+      <div class="field-row tf-meta">
+        <div class="field">
+          <label data-for="note">Catatan singkat</label>
+          <input data-id="note" type="text" maxlength="60" autocomplete="off" placeholder="Contoh: Bakso kantin">
+        </div>
+        <div class="field">
+          <label data-for="date">Tanggal</label>
+          <input data-id="date" type="date">
+          <p class="error" data-id="date-err" hidden></p>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-blue btn-block tf-save" data-role="save"><span data-icon="check" data-size="18" data-stroke="2.5"></span><span>Simpan Transaksi</span></button>
+    </form>
+  </template>
+</body>
+</html>

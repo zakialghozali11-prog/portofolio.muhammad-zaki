@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Logo MZ — Muhammad Zaki Al Ghozali">
+  <defs>
+    <!-- Gradien squircle biru cerah (tanpa hijau) -->
+    <linearGradient id="mzBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B3B8C"/>
+      <stop offset="0.52" stop-color="#007BFF"/>
+      <stop offset="1" stop-color="#38BDF8"/>
+    </linearGradient>
+    <!-- Kilau kaca lengkung di bagian atas -->
+    <linearGradient id="mzShine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.38"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="mzSquircle">
+      <rect width="512" height="512" rx="116"/>
+    </clipPath>
+    <filter id="mzGlow" x="-40%" y="-120%" width="180%" height="340%">
+      <feDropShadow dx="0" dy="7" stdDeviation="9" flood-color="#38BDF8" flood-opacity="0.75"/>
+    </filter>
+  </defs>
+
+  <g clip-path="url(#mzSquircle)">
+    <rect width="512" height="512" fill="url(#mzBg)"/>
+    <path d="M0 0H512V200C390 140 120 140 0 226Z" fill="url(#mzShine)"/>
+    <rect x="1.5" y="1.5" width="509" height="509" rx="114.5" fill="none" stroke="#FFFFFF" stroke-opacity="0.35" stroke-width="3"/>
+  </g>
+
+  <!-- Monogram MZ geometris tebal -->
+  <g transform="translate(256 248) scale(3.7) translate(-50 -50)" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" filter="url(#mzGlow)">
+    <path d="M14 68V32L32 54L50 32V68"/>
+    <path d="M58 32H86L58 68H86"/>
+  </g>
+  <!-- Aksen garis biru es di bawah monogram -->
+  <rect x="196" y="402" width="120" height="10" rx="5" fill="#E0F2FE" opacity="0.9"/>
+</svg>
