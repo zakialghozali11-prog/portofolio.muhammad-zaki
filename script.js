@@ -17,7 +17,7 @@
      1. DATA & SEED  — bagian yang boleh kamu ubah (catatan keuangan mulai dari 0)
      ====================================================================== */
   const CONFIG = {
-    email: "zaki.alghozali@mzstudio.id",
+    email: "zakialghozali11@gmail.com",
     formEndpoint: "", // (opsional) alamat Formspree, mis. "https://formspree.io/f/abcdwxyz". Kosong = pesan dibuka lewat aplikasi email.
     timezone: "Asia/Jakarta", // dipakai untuk sapaan Pagi / Siang / Sore / Malam
   };
@@ -65,7 +65,7 @@
     1: { school: ["English", "Agama", "B. Indonesia"], vibe: ["19.30 – 20.30", "Susun PRD & rancang tampilan UI"] },
     2: { school: ["Olahraga", "B. Jawa", "Pendidikan Pancasila"], vibe: ["19.30 – 20.30", "Belajar JavaScript & latihan kode"] },
     3: { school: ["IPA", "Matematika", "Seni Budaya"], vibe: ["19.30 – 21.00", "Bangun fitur baru bersama AI"] },
-    4: { school: ["Matematika", "Informatika", "BK", "IPA"], les: "16.30 – 19.30", vibe: ["Mulai 20.00", "Eksperimen UI Liquid Glass"] },
+    4: { school: ["Matematika", "Informatika", "BK", "IPA"], les: "16.30 – 19.30", vibe: ["20.00 – 21.00", "Eksperimen UI Liquid Glass"] },
     5: { school: ["B. Indonesia", "IPS"], vibe: ["19.30 – 21.00", "Iterasi AI & perapian detail"] },
     6: { school: [], rest: ["Libur sekolah", "Waktu bebas & kegiatan ekstrakurikuler"], les: "14.00 – 15.30", vibeFirst: true, vibe: ["Pagi hari", "Sesi proyek utama: MZ Liquid App"] },
     7: { school: [], rest: ["Libur sekolah", "Istirahat & persiapan minggu depan"], vibe: ["16.00 – 17.30", "Review, upload GitHub & catat keuangan"] },
