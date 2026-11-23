@@ -45,8 +45,8 @@
   const FOCUS = {
     skill: [
       { label: "Vibe", value: "95%", pct: 95 },
-      { label: "UI/UX", value: "91%", pct: 91 },
-      { label: "Web", value: "88%", pct: 88 },
+      { label: "UI/UX", value: "90%", pct: 90 },
+      { label: "Web", value: "90%", pct: 90 },
     ],
     jam: [
       { label: "Coding", value: "12 jam", pct: 86 },
@@ -170,8 +170,8 @@
 
   const SKILLS = [
     { name: "Vibe Coding & AI Prompting", level: 95 },
-    { name: "UI/UX Liquid Glass", level: 91 },
-    { name: "HTML/CSS/JS Web App", level: 88 },
+    { name: "UI/UX Liquid Glass", level: 90 },
+    { name: "HTML/CSS/JS Web App", level: 90 },
     { name: "Rapid Prototyping & PWA", level: 90 },
   ];
 
