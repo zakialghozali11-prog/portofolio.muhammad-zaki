@@ -67,8 +67,8 @@
     3: { school: ["IPA", "Matematika", "Seni Budaya"], vibe: ["19.30 – 20.30", "Bangun fitur baru bersama AI"] },
     4: { school: ["Matematika", "Informatika", "BK", "IPA"], les: "16.30 – 19.30", vibe: ["20.30 – 21.30", "Eksperimen UI Liquid Glass"] },
     5: { school: ["B. Indonesia", "IPS"], vibe: ["19.30 – 21.00", "Iterasi AI & perapian detail"] },
-    6: { school: [], rest: ["Libur sekolah", "Waktu bebas & kegiatan ekstrakurikuler"], les: "14.00 – 15.30", vibeFirst: true, vibe: ["09.30 – 10.30", "Sesi proyek utama: MZ Liquid App"] },
-    7: { school: [], rest: ["Libur sekolah", "Istirahat & persiapan minggu depan"], vibe: ["16.00 – 17.30", "Review, upload GitHub & catat keuangan"] },
+    6: { school: [], rest: ["Libur sekolah", "Waktu bebas & kegiatan ekstrakurikuler"], les: "14.00 – 15.30", vibe: ["09.30 – 10.30", "Sesi proyek utama: MZ Liquid App"] },
+    7: { school: [], rest: ["Libur sekolah", "Istirahat & persiapan minggu depan"], vibe: ["16.30 – 17.30", "Review, upload GitHub & catat keuangan"] },
   };
 
   const ACTIVITY = {
